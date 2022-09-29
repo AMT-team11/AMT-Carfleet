@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="dataCar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dataCar.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
