@@ -11,6 +11,6 @@ public class Tests {
     public void emptyFileTest(){
         ParserJSON parser = new ParserJSON();
         File file = new File("empty.json");
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(file));
+        assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parse(file));
     }
 }
