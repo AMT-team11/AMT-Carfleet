@@ -1,4 +1,5 @@
 import java.io.File;
+import Exception.ParserJSONException;
 
 public class ParserJSON {
 
@@ -6,7 +7,19 @@ public class ParserJSON {
         throw new EmptyJSONException();
     }
 
-    class EmptyJSONException extends Exception {
+    class EmptyJSONException extends ParserJSONException {
+
+    }
+
+    class UnstructuredJSONException extends ParserJSONException {
+
+    }
+
+    class MissingFieldJSONException extends ParserJSONException {
+
+    }
+
+    class UntreatableFieldTypeJSONException extends ParserJSONException {
 
     }
 }
