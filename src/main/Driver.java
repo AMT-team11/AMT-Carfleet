@@ -5,9 +5,10 @@ import java.util.ArrayList;
 public class Driver {
     private String id;
     private String name;
-    private ArrayList<Car> cars;
+    private Car[] cars;
 
-    public Driver(String id, String name, ArrayList<Car> cars) {
+    public Driver() {}
+    public Driver(String id, String name, Car[] cars) {
         this.id = id;
         this.name = name;
         this.cars = cars;
@@ -21,7 +22,7 @@ public class Driver {
         return name;
     }
 
-    public ArrayList<Car> getCars() {
+    public Car[] getCars() {
         return cars;
     }
 
@@ -33,7 +34,7 @@ public class Driver {
         this.name = name;
     }
 
-    public void setCars(ArrayList<Car> cars) {
+    public void setCars(Car[] cars) {
         this.cars = cars;
     }
 }

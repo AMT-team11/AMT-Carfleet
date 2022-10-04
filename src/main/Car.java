@@ -5,12 +5,13 @@ import java.util.ArrayList;
 public class Car {
     private String id;
     private String name;
-    private ArrayList<Values> values;
+    private Values[] column_values;
 
-    public Car(String id, String name, ArrayList<Values> values) {
+    public Car() {}
+    public Car(String id, String name, Values[] column_values) {
         this.id = id;
         this.name = name;
-        this.values = values;
+        this.column_values = column_values;
     }
 
     public String getId() {
@@ -21,8 +22,8 @@ public class Car {
         return name;
     }
 
-    public ArrayList<Values> getValues() {
-        return values;
+    public Values[] getColumn_values() {
+        return column_values;
     }
 
     public void setId(String id) {
@@ -33,7 +34,8 @@ public class Car {
         this.name = name;
     }
 
-    public void setValues(ArrayList<Values> values) {
-        this.values = values;
+    public void setColumn_values(Values[] column_values) {
+        this.column_values = column_values;
     }
+
 }

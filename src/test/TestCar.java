@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -180,6 +182,11 @@ public class TestCar {
                 "}";
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.readValue(json, ObjectNode.class);
-        System.out.println(node.get("data").get("boards").get(0));
+        String items = node.get("data").get("boards").get(0).get("items").toString();
+        System.out.println(items);
+        List<Car> cars = Arrays.asList((new ObjectMapper()).readValue(
+                items,
+                Car[].class));
+        System.out.println(cars);
     }
 }
