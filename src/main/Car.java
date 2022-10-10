@@ -37,5 +37,13 @@ public class Car {
     public void setColumn_values(Values[] column_values) {
         this.column_values = column_values;
     }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Values v : column_values) {
+            sb.append(v.toString());
+            sb.append(" ");
+        }
+        return "Car [id=" + id + ", name=" + name + ", column_values=" + sb + "]";
+    }
 
 }

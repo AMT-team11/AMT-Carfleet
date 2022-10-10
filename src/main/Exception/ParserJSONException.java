@@ -1,4 +1,4 @@
 package main.Exception;
 
-public class ParserJSONException extends Exception{
+public class ParserJSONException extends RuntimeException{
 }

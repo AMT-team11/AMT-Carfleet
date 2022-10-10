@@ -3,7 +3,6 @@ package main;
 public class Values {
     private String title;
     private String text;
-
     public Values() {}
     public Values(String value1, String value2) {
         this.title = value1;
@@ -24,5 +23,9 @@ public class Values {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String toString() {
+        return "Title: " + title + ", Text: " + text;
     }
 }
