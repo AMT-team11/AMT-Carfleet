@@ -21,7 +21,7 @@ public class TestCar {
     }
     /* test that the parser throw an exception if it receives an empty file */
     @Test
-    public void emptyFileTest(){
+    public void emptyFileTest() {
         File file = new File("empty.json");
         assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseCar(file));
         File file2 = new File("./src/test/resources/emptyJSON.json");
