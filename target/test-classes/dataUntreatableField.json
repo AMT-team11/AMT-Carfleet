@@ -1,11 +1,11 @@
 {
-  "data" : {
+  "data": {
     "boards": [
       {
         "items": [
           {
             "id": "939948275",
-            "name": "GE 123201",
+            "nema": "GE 123201",
             "column_values": [
               {
                 "title": "Modèle",
@@ -144,4 +144,6 @@
         ]
       }
     ]
+  },
+  "account_id": 7650323
 }

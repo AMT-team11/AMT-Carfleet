@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import main.Exception.ParserJSONException;
@@ -32,6 +34,7 @@ public class ParserJSON {
         ObjectNode node = null;
         List<Car> cars = null;
         try {
+            checkJSON(json);
             checkFields(json);
             node = new ObjectMapper().readValue(json, ObjectNode.class);
             String items = node.get("data").get("boards").get(0).get("items").toString();
@@ -57,6 +60,7 @@ public class ParserJSON {
         ObjectNode node = null;
         List<Driver> cars = null;
         try {
+            checkJSON(json);
             checkFields(json);
             node = new ObjectMapper().readValue(json, ObjectNode.class);
             String items = node.get("data").get("boards").get(0).get("items").toString();
@@ -74,11 +78,24 @@ public class ParserJSON {
         ObjectNode node;
         node = new ObjectMapper().readValue(json, ObjectNode.class);
         if (!node.has("data")) {
-            throw new UnstructuredJSONException();
+            throw new MissingFieldJSONException();
         }
         node = node.get("data").deepCopy();
         if (!node.has("boards")) {
+            throw new MissingFieldJSONException();
+        }
+    }
+
+    private void checkJSON(String json) {
+        try {
+            ObjectNode node = new ObjectMapper().readValue(json, ObjectNode.class);
+
+        } catch (JsonMappingException e) {
+            throw new UntreatableFieldTypeJSONException();
+        } catch (JsonParseException e) {
             throw new UnstructuredJSONException();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
