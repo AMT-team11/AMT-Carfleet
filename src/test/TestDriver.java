@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestDriver {
+public class DriverTest {
     private ParserJSON parser = new ParserJSON();
 
     @BeforeEach
@@ -23,25 +23,25 @@ public class TestDriver {
 
     @Test
     public void emptyFileTest(){
-        File file = new File("empty.json");
+        File file = new File("./src/test/resources/empty.json");
         assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseDriver(file));
     }
 
     @Test
     public void unstructuredFileTest(){
-        File file = new File("/dataUnstructured.json");
+        File file = new File("./src/test/resources/dataUnstructured.json");
         assertThrows(ParserJSON.UnstructuredJSONException.class, () -> parser.parseDriver(file));
     }
 
     @Test
     public void missingFieldTest(){
-        File file = new File("/dataMissingField.json");
+        File file = new File("./src/test/resources/dataMissingField.json");
         assertThrows(ParserJSON.MissingFieldJSONException.class, () -> parser.parseDriver(file));
     }
 
     @Test
     public void unTreatableFieldTypeTest(){
-        File file = new File("/dataUntreatableFieldType.json");
+        File file = new File("./src/test/resources/dataUntreatableFieldType.json");
         assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class, () -> parser.parseDriver(file));
     }
 
@@ -49,7 +49,7 @@ public class TestDriver {
     public void serializeDriverObject() {
         ParserJSON pj = new ParserJSON();
         try {
-            List<Driver> drivers = pj.parseDriver(new File("dataDriver.json"));
+            List<Driver> drivers = pj.parseDriver(new File("./src/test/resources/dataDriver.json"));
             assert(!drivers.isEmpty());
             Driver driver = drivers.get(0);
             assertEquals(driver.getId(), "939948325");

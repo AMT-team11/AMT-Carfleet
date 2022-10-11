@@ -1,7 +1,5 @@
 package test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import main.Car;
 import main.ParserJSON;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,14 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestCar {
+public class CarTest {
 
     ParserJSON parser = new ParserJSON();
     @BeforeEach
@@ -26,33 +22,34 @@ public class TestCar {
     /* test that the parser throw an exception if it receives an empty file */
     @Test
     public void emptyFileTest(){
-
         File file = new File("empty.json");
         assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseCar(file));
+        File file2 = new File("./src/test/resources/emptyJSON.json");
+        assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseCar(file2));
     }
 
     @Test
     public void unstructuredFileTest(){
-        File file = new File("/dataUnstructured.json");
+        File file = new File("./src/test/resources/dataUnstructured.json");
         assertThrows(ParserJSON.UnstructuredJSONException.class, () -> parser.parseCar(file));
     }
 
     @Test
     public void missingFieldTest(){
-        File file = new File("/dataMissingField.json");
+        File file = new File("./src/test/resources/dataMissingField.json");
         assertThrows(ParserJSON.MissingFieldJSONException.class, () -> parser.parseCar(file));
     }
 
     @Test
     public void unTreatableFieldTypeTest(){
-        File file = new File("/dataUntreatableFieldType.json");
+        File file = new File("./src/test/resources/dataUntreatableFieldType.json");
         assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class, () -> parser.parseCar(file));
     }
     @Test
     public void serializeCarObject() {
         ParserJSON pj = new ParserJSON();
         try {
-            List<Car> cars = pj.parseCar(new File("dataCar.json"));
+            List<Car> cars = pj.parseCar(new File("./src/test/resources/dataCar.json"));
             assert(!cars.isEmpty());
             Car car = cars.get(0);
             assertEquals(car.getId(), "939948275");
