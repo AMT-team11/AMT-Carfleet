@@ -1,16 +1,16 @@
 package test;
 
+import main.Driver;
 import main.ParserJSON;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import main.Car;
-import main.ParserJSON;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestDriver {
@@ -22,7 +22,44 @@ public class TestDriver {
     }
 
     @Test
-    public void emptyFileTest() {
-        assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseDriver(new File("empty.json")));
+    public void emptyFileTest(){
+        File file = new File("empty.json");
+        assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseDriver(file));
+    }
+
+    @Test
+    public void unstructuredFileTest(){
+        File file = new File("/dataUnstructured.json");
+        assertThrows(ParserJSON.UnstructuredJSONException.class, () -> parser.parseDriver(file));
+    }
+
+    @Test
+    public void missingFieldTest(){
+        File file = new File("/dataMissingField.json");
+        assertThrows(ParserJSON.MissingFieldJSONException.class, () -> parser.parseDriver(file));
+    }
+
+    @Test
+    public void unTreatableFieldTypeTest(){
+        File file = new File("/dataUntreatableFieldType.json");
+        assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class, () -> parser.parseDriver(file));
+    }
+
+    @Test
+    public void serializeDriverObject() {
+        ParserJSON pj = new ParserJSON();
+        try {
+            List<Driver> drivers = pj.parseDriver(new File("dataDriver.json"));
+            assert(!drivers.isEmpty());
+            Driver driver = drivers.get(0);
+            assertEquals(driver.getId(), "939948325");
+            assertEquals(driver.getName(), "GE 4567889");
+            assertEquals(driver.getSubitems().length,  1);
+            assertEquals(driver.getSubitems()[0].getId(), "1879863460");
+            assertEquals(driver.getSubitems()[0].getName(), "Responsable véhicule : Maxime Fontaines");
+            assertEquals(driver.getSubitems()[0].getColumn_values().length, 9);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

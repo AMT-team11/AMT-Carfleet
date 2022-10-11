@@ -1,17 +1,15 @@
 package main;
 
-import java.util.ArrayList;
-
 public class Driver {
     private String id;
     private String name;
-    private Car[] cars;
+    private Car[] subitems;
 
     public Driver() {}
     public Driver(String id, String name, Car[] cars) {
         this.id = id;
         this.name = name;
-        this.cars = cars;
+        this.subitems = cars;
     }
 
     public String getId() {
@@ -22,8 +20,8 @@ public class Driver {
         return name;
     }
 
-    public Car[] getCars() {
-        return cars;
+    public Car[] getSubitems() {
+        return subitems;
     }
 
     public void setId(String id) {
@@ -34,7 +32,7 @@ public class Driver {
         this.name = name;
     }
 
-    public void setCars(Car[] cars) {
-        this.cars = cars;
+    public void setSubitems(Car[] subitems) {
+        this.subitems = subitems;
     }
 }

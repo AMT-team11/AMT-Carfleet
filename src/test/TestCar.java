@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestCar {
@@ -54,11 +55,11 @@ public class TestCar {
             List<Car> cars = pj.parseCar(new File("dataCar.json"));
             assert(!cars.isEmpty());
             Car car = cars.get(0);
-            assert(Objects.equals(car.getId(), "939948275"));
-            assert(Objects.equals(car.getName(), "GE 123201"));
-            assert(car.getColumn_values().length == 33);
-            assert(Objects.equals(car.getColumn_values()[0].getTitle(), "Modèle"));
-            assert(Objects.equals(car.getColumn_values()[0].getText(), "Volkswagen California"));
+            assertEquals(car.getId(), "939948275");
+            assertEquals(car.getName(), "GE 123201");
+            assertEquals(car.getColumn_values().length, 33);
+            assertEquals(car.getColumn_values()[0].getTitle(), "Modèle");
+            assertEquals(car.getColumn_values()[0].getText(), "Volkswagen California");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
