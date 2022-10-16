@@ -32,13 +32,13 @@ public class TestCar {
 
     @Test
     public void missingFieldTest(){
-        File file = new File("./src/test/resources/dataMissingField.json");
+        File file = new File("./src/test/resources/dataCarMissingField.json");
         assertThrows(ParserJSON.MissingFieldJSONException.class, () -> parser.parseCar(file));
     }
 
     @Test
     public void unTreatableFieldTypeTest(){
-        File file = new File("./src/test/resources/dataUntreatableFieldType.json");
+        File file = new File("./src/test/resources/dataCarUntreatableField.json");
         assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class, () -> parser.parseCar(file));
     }
     @Test

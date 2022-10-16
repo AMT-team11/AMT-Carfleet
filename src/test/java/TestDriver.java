@@ -30,13 +30,13 @@ public class TestDriver {
 
     @Test
     public void missingFieldTest(){
-        File file = new File("./src/test/resources/dataMissingField.json");
+        File file = new File("./src/test/resources/dataDriverMissingField.json");
         assertThrows(ParserJSON.MissingFieldJSONException.class, () -> parser.parseDriver(file));
     }
 
     @Test
     public void unTreatableFieldTypeTest(){
-        File file = new File("./src/test/resources/dataUntreatableFieldType.json");
+        File file = new File("./src/test/resources/dataDriverUntreatableField.json");
         assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class, () -> parser.parseDriver(file));
     }
 
