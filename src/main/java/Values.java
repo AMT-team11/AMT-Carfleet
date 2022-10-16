@@ -1,5 +1,3 @@
-package main;
-
 public class Values {
     private String title;
     private String text;

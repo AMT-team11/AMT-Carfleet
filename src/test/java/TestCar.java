@@ -1,7 +1,3 @@
-package test;
-
-import main.Car;
-import main.ParserJSON;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
