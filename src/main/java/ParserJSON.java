@@ -17,10 +17,6 @@ import Exception.ParserJSONException;
 
 public class ParserJSON {
 
-    public static void main(String[] args) throws ParserJSONException, IOException {
-        ParserJSON parserJSON = new ParserJSON();
-        parserJSON.parseCar(Paths.get("dataCar.json").toFile());
-    }
     private <T> List<T> parse(String json, Class<T[]> tClass) {
         ObjectNode node = null;
         List<T> ret = null;
@@ -67,45 +63,6 @@ public class ParserJSON {
 
     public List<Driver> parseDriver(File file) throws ParserJSONException, IOException {
         return parse(file, Driver[].class);
-    }
-
-    public List<Driver> parseDriver(String json) {
-        ObjectNode node = null;
-        List<Driver> cars = null;
-        try {
-            checkJSON(json);
-            checkFields(json);
-            node = new ObjectMapper().readValue(json, ObjectNode.class);
-            String items = node.get("data").get("boards").get(0).get("items").toString();
-            cars = Arrays.asList((new ObjectMapper()).readValue(
-                    items,
-                    Driver[].class));
-            System.out.println(cars);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        return cars;
-    }
-
-    private void checkFields(String json) throws JsonProcessingException {
-        ObjectNode node;
-        node = new ObjectMapper().readValue(json, ObjectNode.class);
-
-    }
-
-    private void checkJSON(String json) {
-        try {
-            ObjectNode node = new ObjectMapper().readValue(json, ObjectNode.class);
-
-        }
-        catch (UnrecognizedPropertyException e) {
-            throw new UntreatableFieldTypeJSONException();
-        } catch (JsonParseException e) {
-            throw new UnstructuredJSONException();
-        } catch (JsonProcessingException e) {
-            System.out.println(e.getClass());
-            throw new RuntimeException(e);
-        }
     }
 
     public static class EmptyJSONException extends ParserJSONException {
