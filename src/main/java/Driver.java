@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Driver {
     private String id;
     private String name;
@@ -32,5 +34,14 @@ public class Driver {
 
     public void setSubitems(Car[] subitems) {
         this.subitems = subitems;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Driver driver)) {
+            return false;
+        }
+        return driver.getId().equals(id) && driver.getName().equals(name) && Arrays.equals(driver.getSubitems(), subitems);
     }
 }

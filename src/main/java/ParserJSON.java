@@ -1,15 +1,11 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.io.JsonEOFException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -39,7 +35,8 @@ public class ParserJSON {
             throw new UntreatableFieldTypeJSONException();
         } catch (JsonParseException e) {
             throw new UnstructuredJSONException();
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
         return ret;
@@ -66,18 +63,28 @@ public class ParserJSON {
     }
 
     public static class EmptyJSONException extends ParserJSONException {
+        public EmptyJSONException() {
+            super("The file is empty");
+        }
 
     }
 
     public static class UnstructuredJSONException extends ParserJSONException {
-
+        public UnstructuredJSONException() {
+            super("The file could not be parsed because jackson object mapper unexpectedly reached the end of JSON input");
+        }
     }
 
     public static class MissingFieldJSONException extends ParserJSONException {
-
+        public MissingFieldJSONException() {
+            super("The file could not be parsed because required field were missing in JSON input");
+        }
     }
 
     public static class UntreatableFieldTypeJSONException extends ParserJSONException {
-
+        public UntreatableFieldTypeJSONException() {
+            super("The file could not be parsed because the name of a field was not recognized");
+        }
     }
+
 }

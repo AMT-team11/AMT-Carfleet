@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Values {
     private String title;
     private String text;
@@ -25,5 +27,18 @@ public class Values {
 
     public String toString() {
         return "Title: " + title + ", Text: " + text;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Values values)) {
+            return false;
+        }
+
+        String title = values.getTitle(), text = values.getText();
+        if (this.title == null) return title == null;
+        if (this.text == null) return text == null;
+        return values.getTitle().equals(title) && values.getText().equals(text);
     }
 }

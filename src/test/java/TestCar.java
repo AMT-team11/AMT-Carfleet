@@ -5,8 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCar {
 
@@ -15,37 +14,39 @@ public class TestCar {
     void setUp() {
         parser = new ParserJSON();
     }
-    /* test that the parser throw an exception if it receives an empty file */
     @Test
     public void emptyFileTest() {
-        File file = new File("empty.json");
-        assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseCar(file));
-        File file2 = new File("./src/test/resources/emptyJSON.json");
-        assertThrows(ParserJSON.EmptyJSONException.class, () -> parser.parseCar(file2));
+        assertThrows(ParserJSON.EmptyJSONException.class,
+                () -> parser.parseCar(new File("empty.json")));
+        assertThrows(ParserJSON.EmptyJSONException.class,
+                () -> parser.parseCar(new File("./src/test/resources/emptyJSON.json")));
     }
 
     @Test
     public void unstructuredFileTest(){
-        File file = new File("./src/test/resources/dataUnstructured.json");
-        assertThrows(ParserJSON.UnstructuredJSONException.class, () -> parser.parseCar(file));
+        assertThrows(ParserJSON.UnstructuredJSONException.class,
+                () -> parser.parseCar(new File("./src/test/resources/dataUnstructured.json")));
     }
 
     @Test
     public void missingFieldTest(){
-        File file = new File("./src/test/resources/dataCarMissingField.json");
-        assertThrows(ParserJSON.MissingFieldJSONException.class, () -> parser.parseCar(file));
+        assertThrows(ParserJSON.MissingFieldJSONException.class,
+                () -> parser.parseCar(new File("./src/test/resources/dataCarMissingField.json")));
     }
 
     @Test
     public void unTreatableFieldTypeTest(){
-        File file = new File("./src/test/resources/dataCarUntreatableField.json");
-        assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class, () -> parser.parseCar(file));
+        assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class,
+                () -> parser.parseCar(new File("./src/test/resources/dataCarUntreatableField.json")));
+        assertThrows(ParserJSON.UntreatableFieldTypeJSONException.class,
+                () -> parser.parseCar(new File("./src/test/resources/dataCarUnexpectedField.json")));
     }
+
     @Test
     public void serializeCarObject() {
-        ParserJSON pj = new ParserJSON();
+
         try {
-            List<Car> cars = pj.parseCar(new File("./src/test/resources/dataCar.json"));
+            List<Car> cars = parser.parseCar(new File("./src/test/resources/dataCar.json"));
             assert(!cars.isEmpty());
             Car car = cars.get(0);
             assertEquals(car.getId(), "939948275");
@@ -53,6 +54,23 @@ public class TestCar {
             assertEquals(car.getColumn_values().length, 33);
             assertEquals(car.getColumn_values()[0].getTitle(), "Modèle");
             assertEquals(car.getColumn_values()[0].getText(), "Volkswagen California");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void serializeCarObjects() {
+        try {
+            List<Car> cars = parser.parseCar(new File("./src/test/resources/dataCarMultipleObjects.json"));
+            assert(!cars.isEmpty());
+            assertEquals(cars.size(), 4);
+            assertEquals(cars.get(0), cars.get(1));
+            assertNotEquals(cars.get(3), cars.get(2));
+            assertNotEquals(cars.get(3), cars.get(1));
+            assertNotEquals(cars.get(3), cars.get(0));
+            assertNotEquals(cars.get(2), cars.get(0));
+            assertNotEquals(cars.get(2), cars.get(1));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

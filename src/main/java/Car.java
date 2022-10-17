@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Car {
     private String id;
@@ -42,6 +43,15 @@ public class Car {
             sb.append(" ");
         }
         return "Car [id=" + id + ", name=" + name + ", column_values=" + sb + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Car car)) {
+            return false;
+        }
+        return car.getId().equals(id) && car.getName().equals(name) && Arrays.equals(car.getColumn_values(), column_values);
     }
 
 }
