@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,9 +14,9 @@ import Exception.ParserJSONException;
 
 public class ParserJSON {
 
-    private <T> List<T> parse(String json, Class<T[]> tClass) {
+    private <T> ArrayList<T> parse(String json, Class<T[]> tClass) {
         ObjectNode node = null;
-        List<T> ret = null;
+        ArrayList<T> ret = null;
         try {
             node = new ObjectMapper().readValue(json, ObjectNode.class);
             if (!node.has("data")) {
@@ -30,7 +31,7 @@ public class ParserJSON {
                 throw new MissingFieldJSONException();
             }
             String items = node.get("items").toString();
-            ret = Arrays.asList(new ObjectMapper().readValue(items, tClass));
+            ret = new ArrayList<>(Arrays.asList(new ObjectMapper().readValue(items, tClass)));
         } catch (UnrecognizedPropertyException e) {
             throw new UntreatableFieldTypeJSONException();
         } catch (JsonParseException e) {
@@ -42,7 +43,7 @@ public class ParserJSON {
         return ret;
     }
 
-    private <T> List<T> parse(File file, Class<T[]> tClass) {
+    private <T> ArrayList<T> parse(File file, Class<T[]> tClass) {
         if(!file.exists() || file.length() == 0){
             throw new EmptyJSONException();
         }
@@ -54,11 +55,11 @@ public class ParserJSON {
         }
     }
 
-    public List<Car> parseCar(File file) throws ParserJSONException, IOException {
+    public ArrayList<Car> parseCar(File file) throws ParserJSONException, IOException {
         return parse(file, Car[].class);
     }
 
-    public List<Driver> parseDriver(File file) throws ParserJSONException, IOException {
+    public ArrayList<Driver> parseDriver(File file) throws ParserJSONException, IOException {
         return parse(file, Driver[].class);
     }
 

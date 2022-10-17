@@ -1,19 +1,11 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestDriver {
-    private ParserJSON parser = new ParserJSON();
-
-    @BeforeEach
-    public void SetUp() {
-        parser = new ParserJSON();
-    }
+public class TestDriver extends parserJSONTest {
 
     @Test
     public void emptyFileTest(){

@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -7,13 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestCar {
-
-    ParserJSON parser = new ParserJSON();
-    @BeforeEach
-    void setUp() {
-        parser = new ParserJSON();
-    }
+public class TestCar extends parserJSONTest {
     @Test
     public void emptyFileTest() {
         assertThrows(ParserJSON.EmptyJSONException.class,
