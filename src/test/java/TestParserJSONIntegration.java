@@ -36,11 +36,33 @@ public class TestParserJSONIntegration {
 
     @Test
     public void mergingFilesTest() {
-try {
+        try {
             List<Car> cars = carTester.parser.parseCar(new File("./src/test/resources/dataCar.json"));
             List<Driver> drivers = driverTester.parser.parseDriver(new File("./src/test/resources/dataDriver.json"));
             assert(!cars.isEmpty());
             assert(!drivers.isEmpty());
+
+            cars.addAll(carTester.parser.parseCar(new File("./src/test/resources/dataCarMultipleObjects.json")));
+            drivers.addAll(driverTester.parser.parseDriver(new File("./src/test/resources/dataDriverMultipleObjects.json")));
+
+            assertEquals(cars.size(), 5);
+            assertEquals(drivers.size(), 6);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void mergingFilesWithExceptionTest() {
+        try {
+            List<Car> cars = carTester.parser.parseCar(new File("./src/test/resources/dataCar.json"));
+            List<Driver> drivers = driverTester.parser.parseDriver(new File("./src/test/resources/dataDriver.json"));
+            assert(!cars.isEmpty());
+            assert(!drivers.isEmpty());
+
+            carTester.missingFieldTest();
+            driverTester.unstructuredFileTest();
 
             cars.addAll(carTester.parser.parseCar(new File("./src/test/resources/dataCarMultipleObjects.json")));
             drivers.addAll(driverTester.parser.parseDriver(new File("./src/test/resources/dataDriverMultipleObjects.json")));
